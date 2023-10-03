@@ -28,11 +28,11 @@ class StartMenuViewController: UIViewController {
     private let lowerBoundTextField: UITextField = {
         return InputTextField(placeholder: "Минимальный урон [1...]")
     }()
-
+    
     private let upperBoundTextField: UITextField = {
         return InputTextField(placeholder: "Максимальный урон [1...]")
     }()
-
+    
     
     
     private let difficultySegmentedControl: UISegmentedControl = {
@@ -47,7 +47,6 @@ class StartMenuViewController: UIViewController {
         button.backgroundColor = .systemIndigo
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -56,6 +55,8 @@ class StartMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
         
         view.backgroundColor = .systemGray3
         isModalInPresentation = true
@@ -81,7 +82,7 @@ class StartMenuViewController: UIViewController {
         ])
     }
     
-    // MARK: - Button methods
+    // MARK: - Other methods
     
     @objc private func submitButtonTapped() {
         guard let attack = Int(attackTextField.text ?? ""),
@@ -90,6 +91,16 @@ class StartMenuViewController: UIViewController {
               let lowerBound = Int(lowerBoundTextField.text ?? ""),
               let upperBound = Int(upperBoundTextField.text ?? "")
         else {
+            return
+        }
+        
+        guard attack >= 1 && attack <= 30,
+              defense >= 1 && defense <= 30,
+              health >= 0,
+              lowerBound >= 1,
+              upperBound >= lowerBound
+        else {
+            showAlert(message: "Некорректные характеристики")
             return
         }
         
@@ -107,12 +118,21 @@ class StartMenuViewController: UIViewController {
         
         delegate?.startGame(attack: attack, defense: defense, health: health, damage: damage, difficultyLevel: difficultyLevel)
     }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
+// MARK: - Delegate
 protocol StartMenuDelegate: AnyObject {
     func startGame(attack: Int, defense: Int, health: Int, damage: ClosedRange<Int>,difficultyLevel: DifficultyLevel)
 }
 
+// MARK: - Enum of difficulty level
 enum DifficultyLevel {
     case easy
     case medium
