@@ -44,28 +44,36 @@ class Player: Creature {
     
     func heal() {
         let healingPotionPower = Int(Float(maxHealth) * 0.3)
-        if healingPotionCount > 0 {
-            health = min(health + healingPotionPower, maxHealth)
-            healingPotionCount -= 1
-        } else {
-            print("Зелья исцеления кончились!")
-        }
+        health = min(health + healingPotionPower, maxHealth)
+        healingPotionCount -= 1
+    }
+    
+    func attack(target: inout Monster) {
+        let power = hitPower(target)
+        target.health -= power
     }
 }
 
 // MARK: Text game
 extension Player {
-    func drinkPotion() {
-        heal()
-        print("🍺 Игрок пьет зелье и исцеляется. Текущее здоровье игрока: \(health)")
+    func textHeal() {
+        let healingPotionPower = Int(Float(maxHealth) * 0.3)
+        
+        if healingPotionCount > 0 {
+            health = min(health + healingPotionPower, maxHealth)
+            healingPotionCount -= 1
+            print("🍺 Игрок пьет зелье и исцеляется. Текущее здоровье игрока: \(health)")
+        } else {
+            print("Зелья исцеления кончились!")
+        }
     }
     
-    func attack(target: inout Monster) {
+    func textAttack(target: inout Monster) {
         let power = hitPower(target)
         
         if power >= target.health {
             target.health = 0
-            print("🥳 Герой атакует! Нанесено \(power) урона. Здоровье игрока: \(target.health). Вы победили!")
+            print("🥳 Герой атакует! Нанесено \(power) урона. Здоровье монстра: \(target.health). Вы победили!")
         } else {
             target.health -= power
             print("⚔️ Игрок атакует! Нанесено \(power) урона. Здоровье монстра: \(target.health)")

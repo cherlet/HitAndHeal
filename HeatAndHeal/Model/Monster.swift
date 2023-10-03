@@ -35,11 +35,16 @@ class Monster: Creature {
         self.health = health
         self.damage = damage
     }
+    
+    func attack(target: inout Player) {
+        let power = hitPower(target)
+        target.health -= power
+    }
 }
 
 // MARK: Text game
 extension Monster {
-    func attack(target: inout Player) {
+    func textAttack(target: inout Player) {
         let power = hitPower(target)
         
         if power >= target.health {
