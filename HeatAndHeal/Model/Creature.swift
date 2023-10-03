@@ -12,8 +12,6 @@ protocol Creature {
     var defense: Int { get set }
     var health: Int { get set }
     var damage: ClosedRange<Int> { get set }
-    
-    func hit(target: Creature) -> Int
 }
 
 extension Creature {

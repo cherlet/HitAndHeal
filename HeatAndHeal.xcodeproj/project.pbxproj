@@ -13,6 +13,8 @@
 		074809632ACBB49000063497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074809622ACBB49000063497 /* Assets.xcassets */; };
 		074809662ACBB49000063497 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074809642ACBB49000063497 /* LaunchScreen.storyboard */; };
 		07C75E072ACBBCF9001A7543 /* Creature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C75E062ACBBCF9001A7543 /* Creature.swift */; };
+		07C75E092ACBCB65001A7543 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C75E082ACBCB65001A7543 /* Player.swift */; };
+		07C75E0B2ACBCF6A001A7543 /* Monster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C75E0A2ACBCF6A001A7543 /* Monster.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		074809652ACBB49000063497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074809672ACBB49000063497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07C75E062ACBBCF9001A7543 /* Creature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creature.swift; sourceTree = "<group>"; };
+		07C75E082ACBCB65001A7543 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		07C75E0A2ACBCF6A001A7543 /* Monster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monster.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				07C75E062ACBBCF9001A7543 /* Creature.swift */,
+				07C75E082ACBCB65001A7543 /* Player.swift */,
+				07C75E0A2ACBCF6A001A7543 /* Monster.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,6 +170,8 @@
 				07C75E072ACBBCF9001A7543 /* Creature.swift in Sources */,
 				0748095E2ACBB48E00063497 /* ViewController.swift in Sources */,
 				0748095A2ACBB48E00063497 /* AppDelegate.swift in Sources */,
+				07C75E092ACBCB65001A7543 /* Player.swift in Sources */,
+				07C75E0B2ACBCF6A001A7543 /* Monster.swift in Sources */,
 				0748095C2ACBB48E00063497 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
