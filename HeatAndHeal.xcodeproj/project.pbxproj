@@ -10,7 +10,6 @@
 		0748095A2ACBB48E00063497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074809592ACBB48E00063497 /* AppDelegate.swift */; };
 		0748095C2ACBB48E00063497 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748095B2ACBB48E00063497 /* SceneDelegate.swift */; };
 		0748095E2ACBB48E00063497 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748095D2ACBB48E00063497 /* ViewController.swift */; };
-		074809612ACBB48E00063497 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0748095F2ACBB48E00063497 /* Main.storyboard */; };
 		074809632ACBB49000063497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074809622ACBB49000063497 /* Assets.xcassets */; };
 		074809662ACBB49000063497 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074809642ACBB49000063497 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,7 +19,6 @@
 		074809592ACBB48E00063497 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0748095B2ACBB48E00063497 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0748095D2ACBB48E00063497 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		074809602ACBB48E00063497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		074809622ACBB49000063497 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		074809652ACBB49000063497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074809672ACBB49000063497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,22 @@
 		074809582ACBB48E00063497 /* HeatAndHeal */ = {
 			isa = PBXGroup;
 			children = (
+				0748096E2ACBB68E00063497 /* App */,
+				0748095D2ACBB48E00063497 /* ViewController.swift */,
+			);
+			path = HeatAndHeal;
+			sourceTree = "<group>";
+		};
+		0748096E2ACBB68E00063497 /* App */ = {
+			isa = PBXGroup;
+			children = (
 				074809592ACBB48E00063497 /* AppDelegate.swift */,
 				0748095B2ACBB48E00063497 /* SceneDelegate.swift */,
-				0748095D2ACBB48E00063497 /* ViewController.swift */,
-				0748095F2ACBB48E00063497 /* Main.storyboard */,
 				074809622ACBB49000063497 /* Assets.xcassets */,
 				074809642ACBB49000063497 /* LaunchScreen.storyboard */,
 				074809672ACBB49000063497 /* Info.plist */,
 			);
-			path = HeatAndHeal;
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +132,6 @@
 			files = (
 				074809662ACBB49000063497 /* LaunchScreen.storyboard in Resources */,
 				074809632ACBB49000063497 /* Assets.xcassets in Resources */,
-				074809612ACBB48E00063497 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,14 +151,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0748095F2ACBB48E00063497 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				074809602ACBB48E00063497 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		074809642ACBB49000063497 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,12 +285,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LMKCFYYK23;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HeatAndHeal/Info.plist;
+				INFOPLIST_FILE = HeatAndHeal/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -317,12 +313,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LMKCFYYK23;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HeatAndHeal/Info.plist;
+				INFOPLIST_FILE = HeatAndHeal/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
