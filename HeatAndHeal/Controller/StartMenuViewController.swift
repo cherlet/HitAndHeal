@@ -56,7 +56,10 @@ class StartMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemGray3
+        isModalInPresentation = true
+        modalPresentationStyle = .formSheet
         
         setupMenu()
     }

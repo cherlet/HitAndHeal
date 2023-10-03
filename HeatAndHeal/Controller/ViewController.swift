@@ -118,7 +118,9 @@ class ViewController: UIViewController {
     
     func showAlert(message: String) {
         let alert = UIAlertController(title: "Игра окончена", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Новая игра", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "ОК", style: .default) { _ in
+            self.setupStartMenu()
+        }
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
@@ -127,6 +129,9 @@ class ViewController: UIViewController {
 
 extension ViewController: StartMenuDelegate {
     func startGame(attack: Int, defense: Int, health: Int, damage: ClosedRange<Int>, difficultyLevel: DifficultyLevel) {
+        
+        player = nil
+        monster = nil
         
         player = Player(attack: attack, defense: defense, health: health, damage: damage)
         
@@ -150,6 +155,7 @@ extension ViewController: StartMenuDelegate {
 
 extension ViewController {
     func textGame() {
+        
         var player = Player(attack: 20, defense: 18, health: 25, damage: 1...6) // player object
         var monster = Monster(attack: 26, defense: 12, health: 30, damage: 1...8) // monster object
         
