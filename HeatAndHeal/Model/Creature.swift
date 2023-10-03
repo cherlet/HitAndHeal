@@ -15,21 +15,29 @@ protocol Creature {
 }
 
 extension Creature {
-    func hit(target: inout Creature) {
+    
+    func hit(target: Creature) -> Int {
         let attackModifier = attack - (target.defense + 1)
-        let isSuccess: Bool = {
-            for _ in 1...(max(attackModifier, 1)) {
-                let throwingResult = Int.random(in: 1...6)
-                
-                if throwingResult > 4 {
-                    return true
-                }
-            }
-            return false
-        }()
         
-        if isSuccess {
-            target.health -= Int.random(in: damage)
+        if isHit(attackModifier) {
+            return Int.random(in: damage)
+        } else {
+            return 0
         }
+    }
+    
+    func isHit(_ attackModifier: Int) -> Bool {
+        var isSuccess = false
+        
+        for _ in 1...(max(attackModifier, 1)) {
+            let throwingResult = Int.random(in: 1...6)
+            
+            if throwingResult > 4 {
+                isSuccess = true
+                break
+            }
+        }
+        
+        return isSuccess
     }
 }
