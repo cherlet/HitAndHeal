@@ -11,19 +11,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textGameFight()
+        textGame()
     }
     
-    func textGameFight() {
-        var player = Player(attack: 20, defense: 16, health: 30, damage: 1...6) // player object
-        var monster = Monster(attack: 28, defense: 12, health: 50, damage: 1...8) // monster object
+    func textGame() {
+        var player = Player(attack: 20, defense: 18, health: 25, damage: 1...6) // player object
+        var monster = Monster(attack: 26, defense: 12, health: 30, damage: 1...8) // monster object
         
-        for _ in 1...10 { // number of moves (now 10)
+        while player.health != 0 && monster.health != 0 {
+            
             let playerFocused = Bool.random() // true - player attack | false - monster attack
             
             if playerFocused {
                 player.attack(target: &monster)
-                if player.health < 3 { // heal if low hp
+                if player.health < 10 { // heal if low hp
                     player.drinkPotion()
                 }
             } else {

@@ -45,9 +45,9 @@ extension Monster {
         if power >= target.health {
             target.health = 0
             print("👻 Монстр атакует! Нанесено \(power) урона. Здоровье игрока: \(target.health). Вы умерли!")
+        } else {
+            target.health -= power
+            print("👹 Монстр атакует! Нанесено \(power) урона. Здоровье игрока: \(target.health)")
         }
-        
-        target.health -= power
-        print("👹 Монстр атакует! Нанесено \(power) урона. Здоровье игрока: \(target.health)")
     }
 }
