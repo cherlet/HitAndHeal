@@ -14,10 +14,10 @@ protocol Creature {
     var damage: ClosedRange<Int> { get set }
 }
 
+// MARK: Hit function
 extension Creature {
-    
-    func hit(target: Creature) -> Int {
-        let attackModifier = attack - (target.defense + 1)
+    func hitPower(_ target: Creature) -> Int {
+        let attackModifier = max(attack - (target.defense + 1), 1)
         
         if isHit(attackModifier) {
             return Int.random(in: damage)
@@ -29,12 +29,14 @@ extension Creature {
     func isHit(_ attackModifier: Int) -> Bool {
         var isSuccess = false
         
-        for _ in 1...(max(attackModifier, 1)) {
+        for _ in 1...attackModifier {
             let throwingResult = Int.random(in: 1...6)
             
             if throwingResult > 4 {
                 isSuccess = true
                 break
+            } else {
+                continue
             }
         }
         
