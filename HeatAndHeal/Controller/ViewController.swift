@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     var playerHealthBar: HealthBar!
     var monsterHealthBar: HealthBar!
     
+    let healButton = UIButton()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -40,7 +42,6 @@ class ViewController: UIViewController {
         attackButton.layer.cornerRadius = 8
         attackButton.addTarget(self, action: #selector(attackButtonTapped), for: .touchUpInside)
         
-        let healButton = UIButton()
         healButton.setTitle("Исцеление", for: .normal)
         healButton.backgroundColor = UIColor.systemIndigo
         healButton.layer.cornerRadius = 8
@@ -110,8 +111,13 @@ class ViewController: UIViewController {
     }
     
     @objc func healButtonTapped() {
-        player.heal()
-        playerHealthBar.updateValue(value: player.health)
+        if player.isHealingAvailable {
+            player.heal()
+            playerHealthBar.updateValue(value: player.health)
+        } else {
+            healButton.backgroundColor = UIColor.systemIndigo.withAlphaComponent(0.5)
+            healButton.isEnabled = false
+        }
     }
     
     // MARK: - Other methods
@@ -129,9 +135,7 @@ class ViewController: UIViewController {
 
 extension ViewController: StartMenuDelegate {
     func startGame(attack: Int, defense: Int, health: Int, damage: ClosedRange<Int>, difficultyLevel: DifficultyLevel) {
-        
-        player = nil
-        monster = nil
+        reloadObjects()
         
         player = Player(attack: attack, defense: defense, health: health, damage: damage)
         
@@ -148,6 +152,13 @@ extension ViewController: StartMenuDelegate {
         monsterHealthBar.updateValue(value: monster.health)
         
         dismiss(animated: true)
+    }
+    
+    func reloadObjects() {
+        player = nil
+        monster = nil
+        healButton.backgroundColor = UIColor.systemIndigo
+        healButton.isEnabled = true
     }
 }
 

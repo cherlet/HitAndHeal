@@ -14,7 +14,13 @@ class Player: Creature {
     var damage: ClosedRange<Int>
     
     let maxHealth: Int
-    var healingPotionCount = 4
+    
+    var isHealingAvailable = true
+    var healingPotionCount = 4 {
+        didSet {
+            isHealingAvailable = healingPotionCount > 1 ? true : false
+        }
+    }
     
     init(attack: Int, defense: Int, health: Int, damage: ClosedRange<Int>) {
         guard attack >= 1 && attack <= 30 else {
@@ -59,7 +65,7 @@ extension Player {
     func textHeal() {
         let healingPotionPower = Int(Float(maxHealth) * 0.3)
         
-        if healingPotionCount > 0 {
+        if isHealingAvailable {
             health = min(health + healingPotionPower, maxHealth)
             healingPotionCount -= 1
             print("🍺 Игрок пьет зелье и исцеляется. Текущее здоровье игрока: \(health)")
