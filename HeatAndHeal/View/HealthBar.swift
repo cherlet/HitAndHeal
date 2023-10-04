@@ -13,6 +13,7 @@ class HealthBar: UIView {
         let label = UILabel()
         label.textColor = .white
         label.text = "0"
+        label.font = UIFont(name: "BetterVCR", size: 14)
         return label
     }()
     
