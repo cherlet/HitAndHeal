@@ -13,23 +13,26 @@ class StartMenuViewController: UIViewController {
     
     // MARK: - Input view
     
-    private let attackItem = InputMenuItem(fieldName: "Атака", placeholder: "1...30")
-    private let defenseItem = InputMenuItem(fieldName: "Защита", placeholder: "1...30")
-    private let healthItem = InputMenuItem(fieldName: "Здоровье", placeholder: "0...")
-    private let damageItem = RangeInputMenuItem(fieldName: "Диапазон урона", lowerBoundPlaceholder: "min", upperBoundPlaceholder: "max")
+    private let attackItem = InputMenuItem(fieldName: "Attack", placeholder: "1...30")
+    private let defenseItem = InputMenuItem(fieldName: "Defense", placeholder: "1...30")
+    private let healthItem = InputMenuItem(fieldName: "Health", placeholder: "0...")
+    private let damageItem = RangeInputMenuItem(fieldName: "Damage range", lowerBoundPlaceholder: "min", upperBoundPlaceholder: "max")
     
     private let difficultyLevelItem: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Легкий", "Средний", "Сложный"])
+        let segmentedControl = UISegmentedControl(items: ["Easy", "Medium", "Hard"])
+        segmentedControl.backgroundColor = ThemeColor.buttonColor
         segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
     }()
     
     private let submitButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Старт", for: .normal)
+        button.setTitle("Start", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemIndigo
+        button.backgroundColor = ThemeColor.buttonColor
         button.layer.cornerRadius = 8
+        button.layer.borderWidth = 1
+        button.layer.borderColor = ThemeColor.buttonBorderColor?.cgColor
         return button
     }()
     
@@ -38,7 +41,7 @@ class StartMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemGray3
+        view.backgroundColor = ThemeColor.backgroundColor
         isModalInPresentation = true
         
         setupMenu()
@@ -50,12 +53,18 @@ class StartMenuViewController: UIViewController {
         // section labels
         let gameLabel = UILabel()
         gameLabel.text = "Hit & Heal"
+        gameLabel.font = UIFont(name: "BetterVCR", size: 24)
+        gameLabel.textColor = ThemeColor.titleColor
         
         let charsSectionLabel = UILabel()
-        charsSectionLabel.text = "Характеристики персонажа"
+        charsSectionLabel.text = "Character"
+        charsSectionLabel.font = UIFont(name: "BetterVCR", size: 16)
+        charsSectionLabel.textColor = ThemeColor.titleColor
         
         let difficultyLevelLabel = UILabel()
-        difficultyLevelLabel.text = "Сложность игры"
+        difficultyLevelLabel.text = "Difficulty level"
+        difficultyLevelLabel.font = UIFont(name: "BetterVCR", size: 16)
+        difficultyLevelLabel.textColor = ThemeColor.titleColor
         
         // player characteristics setup
         let charsStackView = UIStackView(arrangedSubviews: [attackItem, defenseItem, healthItem, damageItem])
@@ -73,7 +82,7 @@ class StartMenuViewController: UIViewController {
             gameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
             gameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            charsSectionLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 40),
+            charsSectionLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 60),
             charsSectionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             charsStackView.topAnchor.constraint(equalTo: charsSectionLabel.bottomAnchor, constant: 20),
@@ -85,13 +94,15 @@ class StartMenuViewController: UIViewController {
             difficultyLevelItem.topAnchor.constraint(equalTo: difficultyLevelLabel.bottomAnchor, constant: 20),
             difficultyLevelItem.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            submitButton.widthAnchor.constraint(equalToConstant: 150),
+            submitButton.widthAnchor.constraint(equalToConstant: 160),
+            submitButton.heightAnchor.constraint(equalToConstant: 40),
             submitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             submitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        // button target
+        // button setup
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
+        submitButton.titleLabel?.font = UIFont(name: "BetterVCR", size: 20)
     }
     
     // MARK: - Other methods

@@ -12,6 +12,8 @@
 		0748095E2ACBB48E00063497 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748095D2ACBB48E00063497 /* ViewController.swift */; };
 		074809632ACBB49000063497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074809622ACBB49000063497 /* Assets.xcassets */; };
 		074809662ACBB49000063497 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074809642ACBB49000063497 /* LaunchScreen.storyboard */; };
+		075372C82ACD6DD700C8E1DE /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075372C72ACD6DD700C8E1DE /* CustomColor.swift */; };
+		075372CB2ACD793500C8E1DE /* BetterVCR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 075372CA2ACD793500C8E1DE /* BetterVCR.ttf */; };
 		07A6996D2ACC9EE4003134E7 /* InputMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A6996C2ACC9EE4003134E7 /* InputMenuItem.swift */; };
 		07A6996F2ACC9F7D003134E7 /* StartMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A6996E2ACC9F7D003134E7 /* StartMenuViewController.swift */; };
 		07A699712ACCAF9B003134E7 /* HealthBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A699702ACCAF9B003134E7 /* HealthBar.swift */; };
@@ -29,6 +31,8 @@
 		074809622ACBB49000063497 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		074809652ACBB49000063497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074809672ACBB49000063497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		075372C72ACD6DD700C8E1DE /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
+		075372CA2ACD793500C8E1DE /* BetterVCR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BetterVCR.ttf; sourceTree = "<group>"; };
 		07A6996C2ACC9EE4003134E7 /* InputMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMenuItem.swift; sourceTree = "<group>"; };
 		07A6996E2ACC9F7D003134E7 /* StartMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartMenuViewController.swift; sourceTree = "<group>"; };
 		07A699702ACCAF9B003134E7 /* HealthBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthBar.swift; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 		0748096E2ACBB68E00063497 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				075372C92ACD78A900C8E1DE /* Fonts */,
 				074809592ACBB48E00063497 /* AppDelegate.swift */,
 				0748095B2ACBB48E00063497 /* SceneDelegate.swift */,
 				074809622ACBB49000063497 /* Assets.xcassets */,
@@ -88,12 +93,21 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		075372C92ACD78A900C8E1DE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				075372CA2ACD793500C8E1DE /* BetterVCR.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		07B895372ACC0F5D001541C0 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				07A6996C2ACC9EE4003134E7 /* InputMenuItem.swift */,
 				07A699722ACCEE16003134E7 /* RangeInputMenuItem.swift */,
 				07A699702ACCAF9B003134E7 /* HealthBar.swift */,
+				075372C72ACD6DD700C8E1DE /* CustomColor.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -175,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				075372CB2ACD793500C8E1DE /* BetterVCR.ttf in Resources */,
 				074809662ACBB49000063497 /* LaunchScreen.storyboard in Resources */,
 				074809632ACBB49000063497 /* Assets.xcassets in Resources */,
 			);
@@ -189,6 +204,7 @@
 			files = (
 				07A699732ACCEE16003134E7 /* RangeInputMenuItem.swift in Sources */,
 				07C75E072ACBBCF9001A7543 /* Creature.swift in Sources */,
+				075372C82ACD6DD700C8E1DE /* CustomColor.swift in Sources */,
 				07A699712ACCAF9B003134E7 /* HealthBar.swift in Sources */,
 				0748095E2ACBB48E00063497 /* ViewController.swift in Sources */,
 				07A6996F2ACC9F7D003134E7 /* StartMenuViewController.swift in Sources */,

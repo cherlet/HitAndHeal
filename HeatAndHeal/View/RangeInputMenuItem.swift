@@ -25,6 +25,8 @@ class RangeInputMenuItem: UIView {
         upperBoundField.borderStyle = .roundedRect
         
         label.text = fieldName
+        label.font = UIFont(name: "BetterVCR", size: 12)
+        label.textColor = ThemeColor.titleColor
         
         let dash = UILabel()
         dash.text = "-"

@@ -16,10 +16,12 @@ class InputMenuItem: UIView {
         super.init(frame: .zero)
         
         field.placeholder = placeholder
-        label.text = fieldName
-        
         field.keyboardType = .numberPad
         field.borderStyle = .roundedRect
+        
+        label.text = fieldName
+        label.font = UIFont(name: "BetterVCR", size: 12)
+        label.textColor = ThemeColor.titleColor
         
         [field, label].forEach {
             addSubview($0)
