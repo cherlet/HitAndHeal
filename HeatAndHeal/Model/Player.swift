@@ -16,11 +16,7 @@ class Player: Creature {
     let maxHealth: Int
     
     var isHealingAvailable = true
-    var healingPotionCount = 4 {
-        didSet {
-            isHealingAvailable = healingPotionCount > 1 ? true : false
-        }
-    }
+    var healingPotionCount = 4
     
     init(attack: Int, defense: Int, health: Int, damage: ClosedRange<Int>) {
         

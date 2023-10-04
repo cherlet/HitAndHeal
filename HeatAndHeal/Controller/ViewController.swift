@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var monsterHealthBar: HealthBar!
     
     let healButton = UIButton()
+    var healingPotionsView: CharView!
     
     var currentTurn = 0
     var turnLabel: UILabel!
@@ -38,7 +39,6 @@ class ViewController: UIViewController {
     // MARK: - Setup methods
     
     private func setupGame() {
-        
         //health bars and buttons
         playerHealthBar = HealthBar(color: .systemGreen)
         monsterHealthBar = HealthBar(color: .systemRed)
@@ -83,7 +83,6 @@ class ViewController: UIViewController {
         
         // turn labels
         turnLabel = UILabel()
-        turnLabel.text = "Битва еще не началась"
         turnLabel.font = UIFont(name: "BetterVCR", size: 20)
         turnLabel.textColor = ThemeColor.titleColor
         
@@ -182,10 +181,14 @@ class ViewController: UIViewController {
     }
     
     @objc func healButtonTapped() {
-        if player.isHealingAvailable {
+        if player.healingPotionCount > 1 {
             player.heal()
             playerHealthBar.updateValue(value: player.health)
+            healingPotionsView.updatePotionsCount()
         } else {
+            player.heal()
+            playerHealthBar.updateValue(value: player.health)
+            healingPotionsView.updatePotionsCount()
             healButton.backgroundColor = ThemeColor.titleColor!.withAlphaComponent(0.5)
             healButton.isEnabled = false
         }
@@ -222,7 +225,31 @@ extension ViewController: StartMenuDelegate {
         playerHealthBar.updateValue(value: player.health)
         monsterHealthBar.updateValue(value: monster.health)
         
+        setupCharBars()
         dismiss(animated: true)
+    }
+    
+    func setupCharBars() {
+        healingPotionsView = CharView(image: "healImage")
+        
+        let playerCharBar = UIStackView(arrangedSubviews: [
+            CharView(image: "attackImage", value: player.attack),
+            CharView(image: "defenseImage", value: player.defense),
+            CharView(image: "healthImage", value: player.health),
+            CharView(image: "damageImage", valueLowerBound: player.damage.lowerBound, valueUpperBound: player.damage.upperBound),
+            healingPotionsView
+        ])
+        
+        playerCharBar.axis = .vertical
+        playerCharBar.spacing = 24
+        
+        view.addSubview(playerCharBar)
+        playerCharBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            playerCharBar.topAnchor.constraint(equalTo: playerHealthBar.bottomAnchor, constant: 8),
+            playerCharBar.leadingAnchor.constraint(equalTo: playerHealthBar.leadingAnchor),
+        ])
     }
     
     func reloadObjects() {
