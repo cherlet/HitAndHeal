@@ -1,0 +1,44 @@
+//
+//  InputTextField.swift
+//  HeatAndHeal
+//
+//  Created by Усман Махмутхажиев on 03.10.2023.
+//
+
+import UIKit
+
+class InputMenuItem: UIView {
+    
+    lazy var field = UITextField()
+    private lazy var label = UILabel()
+
+    init(fieldName: String, placeholder: String) {
+        super.init(frame: .zero)
+        
+        field.placeholder = placeholder
+        label.text = fieldName
+        
+        field.keyboardType = .numberPad
+        field.borderStyle = .roundedRect
+        
+        [field, label].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: topAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor),
+            
+            field.widthAnchor.constraint(equalToConstant: 56),
+            
+            field.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8),
+            field.leadingAnchor.constraint(equalTo: leadingAnchor),
+            field.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

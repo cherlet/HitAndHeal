@@ -13,29 +13,12 @@ class StartMenuViewController: UIViewController {
     
     // MARK: - Input view
     
-    private let attackTextField: UITextField = {
-        return InputTextField(placeholder: "Атака [1...30]")
-    }()
+    private let attackItem = InputMenuItem(fieldName: "Атака", placeholder: "1...30")
+    private let defenseItem = InputMenuItem(fieldName: "Защита", placeholder: "1...30")
+    private let healthItem = InputMenuItem(fieldName: "Здоровье", placeholder: "0...")
+    private let damageItem = RangeInputMenuItem(fieldName: "Диапазон урона", lowerBoundPlaceholder: "min", upperBoundPlaceholder: "max")
     
-    private let defenseTextField: UITextField = {
-        return InputTextField(placeholder: "Защита [1...30]")
-    }()
-    
-    private let healthTextField: UITextField = {
-        return InputTextField(placeholder: "Здоровье [0...]")
-    }()
-    
-    private let lowerBoundTextField: UITextField = {
-        return InputTextField(placeholder: "Минимальный урон [1...]")
-    }()
-    
-    private let upperBoundTextField: UITextField = {
-        return InputTextField(placeholder: "Максимальный урон [1...]")
-    }()
-    
-    
-    
-    private let difficultySegmentedControl: UISegmentedControl = {
+    private let difficultyLevelItem: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Легкий", "Средний", "Сложный"])
         segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
@@ -43,24 +26,20 @@ class StartMenuViewController: UIViewController {
     
     private let submitButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Продолжить", for: .normal)
+        button.setTitle("Старт", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemIndigo
-        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
         return button
     }()
-    
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
-        
         view.backgroundColor = .systemGray3
         isModalInPresentation = true
-        modalPresentationStyle = .formSheet
         
         setupMenu()
     }
@@ -68,28 +47,61 @@ class StartMenuViewController: UIViewController {
     // MARK: - Setup method
     
     private func setupMenu() {
-        let stackView = UIStackView(arrangedSubviews: [attackTextField, defenseTextField, healthTextField, lowerBoundTextField, upperBoundTextField, difficultySegmentedControl, submitButton])
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.alignment = .center
+        // section labels
+        let gameLabel = UILabel()
+        gameLabel.text = "Hit & Heal"
         
-        view.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let charsSectionLabel = UILabel()
+        charsSectionLabel.text = "Характеристики персонажа"
+        
+        let difficultyLevelLabel = UILabel()
+        difficultyLevelLabel.text = "Сложность игры"
+        
+        // player characteristics setup
+        let charsStackView = UIStackView(arrangedSubviews: [attackItem, defenseItem, healthItem, damageItem])
+        charsStackView.axis = .vertical
+        charsStackView.spacing = 20
+        charsStackView.alignment = .leading
+        
+        // constraints
+        [gameLabel, charsSectionLabel, charsStackView, difficultyLevelLabel, difficultyLevelItem, submitButton].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            gameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            gameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            charsSectionLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 40),
+            charsSectionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            charsStackView.topAnchor.constraint(equalTo: charsSectionLabel.bottomAnchor, constant: 20),
+            charsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            difficultyLevelLabel.topAnchor.constraint(equalTo: charsStackView.bottomAnchor, constant: 40),
+            difficultyLevelLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            difficultyLevelItem.topAnchor.constraint(equalTo: difficultyLevelLabel.bottomAnchor, constant: 20),
+            difficultyLevelItem.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            submitButton.widthAnchor.constraint(equalToConstant: 150),
+            submitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            submitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        
+        // button target
+        submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Other methods
     
     @objc private func submitButtonTapped() {
-        guard let attack = Int(attackTextField.text ?? ""),
-              let defense = Int(defenseTextField.text ?? ""),
-              let health = Int(healthTextField.text ?? ""),
-              let lowerBound = Int(lowerBoundTextField.text ?? ""),
-              let upperBound = Int(upperBoundTextField.text ?? "")
+        guard let attack = Int(attackItem.field.text ?? ""),
+              let defense = Int(defenseItem.field.text ?? ""),
+              let health = Int(healthItem.field.text ?? ""),
+              let lowerBound = Int(damageItem.lowerBoundField.text ?? ""),
+              let upperBound = Int(damageItem.upperBoundField.text ?? "")
         else {
             return
         }
@@ -107,7 +119,7 @@ class StartMenuViewController: UIViewController {
         let damage = lowerBound...upperBound
         
         let difficultyLevel: DifficultyLevel
-        switch difficultySegmentedControl.selectedSegmentIndex {
+        switch difficultyLevelItem.selectedSegmentIndex {
         case 1:
             difficultyLevel = .medium
         case 2:
