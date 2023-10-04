@@ -10,7 +10,7 @@ import UIKit
 class InputMenuItem: UIView {
     
     lazy var field = UITextField()
-    private lazy var label = UILabel()
+    lazy var label = UILabel()
 
     init(fieldName: String, placeholder: String) {
         super.init(frame: .zero)
@@ -18,9 +18,10 @@ class InputMenuItem: UIView {
         field.placeholder = placeholder
         field.keyboardType = .numberPad
         field.borderStyle = .roundedRect
+
         
-        label.text = fieldName
-        label.font = UIFont(name: "BetterVCR", size: 12)
+        label.text = fieldName + ":"
+        label.font = UIFont(name: "BetterVCR", size: 14)
         label.textColor = ThemeColor.titleColor
         
         [field, label].forEach {

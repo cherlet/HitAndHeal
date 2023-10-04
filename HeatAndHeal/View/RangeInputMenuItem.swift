@@ -11,7 +11,8 @@ class RangeInputMenuItem: UIView {
     
     lazy var lowerBoundField = UITextField()
     lazy var upperBoundField = UITextField()
-    private lazy var label = UILabel()
+    lazy var label = UILabel()
+    lazy var dash = UILabel()
 
     init(fieldName: String, lowerBoundPlaceholder: String, upperBoundPlaceholder: String) {
         super.init(frame: .zero)
@@ -24,11 +25,10 @@ class RangeInputMenuItem: UIView {
         upperBoundField.keyboardType = .numberPad
         upperBoundField.borderStyle = .roundedRect
         
-        label.text = fieldName
-        label.font = UIFont(name: "BetterVCR", size: 12)
+        label.text = fieldName + ":"
+        label.font = UIFont(name: "BetterVCR", size: 14)
         label.textColor = ThemeColor.titleColor
         
-        let dash = UILabel()
         dash.text = "-"
         
         [lowerBoundField, upperBoundField, label, dash].forEach {

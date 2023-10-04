@@ -56,24 +56,33 @@ class StartMenuViewController: UIViewController {
         gameLabel.font = UIFont(name: "BetterVCR", size: 24)
         gameLabel.textColor = ThemeColor.titleColor
         
-        let charsSectionLabel = UILabel()
-        charsSectionLabel.text = "Character"
-        charsSectionLabel.font = UIFont(name: "BetterVCR", size: 16)
-        charsSectionLabel.textColor = ThemeColor.titleColor
+        let charSection = UILabel()
+        charSection.text = "Character"
+        charSection.font = UIFont(name: "BetterVCR", size: 16)
+        charSection.textColor = ThemeColor.titleColor
         
-        let difficultyLevelLabel = UILabel()
-        difficultyLevelLabel.text = "Difficulty level"
-        difficultyLevelLabel.font = UIFont(name: "BetterVCR", size: 16)
-        difficultyLevelLabel.textColor = ThemeColor.titleColor
+        let difficultyLevelSection = UILabel()
+        difficultyLevelSection.text = "Difficulty level"
+        difficultyLevelSection.font = UIFont(name: "BetterVCR", size: 16)
+        difficultyLevelSection.textColor = ThemeColor.titleColor
         
         // player characteristics setup
-        let charsStackView = UIStackView(arrangedSubviews: [attackItem, defenseItem, healthItem, damageItem])
-        charsStackView.axis = .vertical
-        charsStackView.spacing = 20
-        charsStackView.alignment = .leading
+        let damageStackView = UIStackView(arrangedSubviews: [damageItem.lowerBoundField, damageItem.dash , damageItem.upperBoundField])
+        damageStackView.axis = .horizontal
+        damageStackView.spacing = 4
+        
+        let charLabelStackView = UIStackView(arrangedSubviews: [attackItem.label, defenseItem.label, healthItem.label, damageItem.label])
+        charLabelStackView.axis = .vertical
+        charLabelStackView.spacing = 40
+        charLabelStackView.alignment = .trailing
+        
+        let charFieldStackView = UIStackView(arrangedSubviews: [attackItem.field, defenseItem.field, healthItem.field, damageStackView])
+        charFieldStackView.axis = .vertical
+        charFieldStackView.spacing = 20
+        charFieldStackView.alignment = .leading
         
         // constraints
-        [gameLabel, charsSectionLabel, charsStackView, difficultyLevelLabel, difficultyLevelItem, submitButton].forEach {
+        [gameLabel, charSection, charLabelStackView, charFieldStackView, difficultyLevelSection, difficultyLevelItem, submitButton].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -82,16 +91,19 @@ class StartMenuViewController: UIViewController {
             gameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
             gameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            charsSectionLabel.topAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 60),
-            charsSectionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            charSection.topAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 60),
+            charSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            charsStackView.topAnchor.constraint(equalTo: charsSectionLabel.bottomAnchor, constant: 20),
-            charsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            charLabelStackView.topAnchor.constraint(equalTo: charSection.bottomAnchor, constant: 48),
+            charLabelStackView.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -4),
             
-            difficultyLevelLabel.topAnchor.constraint(equalTo: charsStackView.bottomAnchor, constant: 40),
-            difficultyLevelLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            charFieldStackView.centerYAnchor.constraint(equalTo: charLabelStackView.centerYAnchor),
+            charFieldStackView.leadingAnchor.constraint(equalTo: charLabelStackView.trailingAnchor, constant: 8),
             
-            difficultyLevelItem.topAnchor.constraint(equalTo: difficultyLevelLabel.bottomAnchor, constant: 20),
+            difficultyLevelSection.topAnchor.constraint(equalTo: charFieldStackView.bottomAnchor, constant: 60),
+            difficultyLevelSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            difficultyLevelItem.topAnchor.constraint(equalTo: difficultyLevelSection.bottomAnchor, constant: 32),
             difficultyLevelItem.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             submitButton.widthAnchor.constraint(equalToConstant: 160),
@@ -114,6 +126,7 @@ class StartMenuViewController: UIViewController {
               let lowerBound = Int(damageItem.lowerBoundField.text ?? ""),
               let upperBound = Int(damageItem.upperBoundField.text ?? "")
         else {
+            showAlert(message: "Enter all characteristic")
             return
         }
         
@@ -123,7 +136,7 @@ class StartMenuViewController: UIViewController {
               lowerBound >= 1,
               upperBound >= lowerBound
         else {
-            showAlert(message: "Некорректные характеристики")
+            showAlert(message: "Entered incorrect characteristics")
             return
         }
         
@@ -143,7 +156,7 @@ class StartMenuViewController: UIViewController {
     }
     
     private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
