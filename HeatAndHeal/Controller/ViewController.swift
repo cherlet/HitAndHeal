@@ -243,6 +243,7 @@ class ViewController: UIViewController {
             self.setupStartMenu()
         }
         alert.addAction(okAction)
+        healingPotionsView.resetPotionsCount()
         present(alert, animated: true, completion: nil)
     }
     

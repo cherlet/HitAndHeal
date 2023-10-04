@@ -171,6 +171,10 @@ class CharView: UIView {
         healingPotionsLabel.text = "\(healingPotionsCount)/4"
     }
     
+    func resetPotionsCount() {
+        healingPotionsLabel.text = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
