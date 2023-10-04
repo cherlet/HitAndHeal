@@ -17,10 +17,11 @@ class HealthBar: UIView {
         return label
     }()
     
-    init(color: UIColor) {
+    init(color: UIColor, borderColor: UIColor) {
         super.init(frame: .zero)
         backgroundColor = color
-        layer.cornerRadius = 8
+        layer.borderWidth = 1
+        layer.borderColor = borderColor.cgColor
         
         addSubview(valueLabel)
         valueLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -81,8 +81,15 @@ class StartMenuViewController: UIViewController {
         charFieldStackView.spacing = 20
         charFieldStackView.alignment = .leading
         
+        // dividers
+        let gameLabelDivider = UIView()
+        gameLabelDivider.backgroundColor = ThemeColor.basilColor
+        
+        let sectionDivider = UIView()
+        sectionDivider.backgroundColor = ThemeColor.basilColor
+        
         // constraints
-        [gameLabel, charSection, charLabelStackView, charFieldStackView, difficultyLevelSection, difficultyLevelItem, submitButton].forEach {
+        [gameLabel, charSection, charLabelStackView, charFieldStackView, difficultyLevelSection, difficultyLevelItem, submitButton, gameLabelDivider, sectionDivider].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -91,7 +98,11 @@ class StartMenuViewController: UIViewController {
             gameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
             gameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            charSection.topAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 60),
+            gameLabelDivider.widthAnchor.constraint(equalTo: view.widthAnchor),
+            gameLabelDivider.heightAnchor.constraint(equalToConstant: 1),
+            gameLabelDivider.topAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 32),
+            
+            charSection.topAnchor.constraint(equalTo: gameLabelDivider.bottomAnchor, constant: 40),
             charSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             charLabelStackView.topAnchor.constraint(equalTo: charSection.bottomAnchor, constant: 48),
@@ -100,7 +111,11 @@ class StartMenuViewController: UIViewController {
             charFieldStackView.centerYAnchor.constraint(equalTo: charLabelStackView.centerYAnchor),
             charFieldStackView.leadingAnchor.constraint(equalTo: charLabelStackView.trailingAnchor, constant: 8),
             
-            difficultyLevelSection.topAnchor.constraint(equalTo: charFieldStackView.bottomAnchor, constant: 60),
+            sectionDivider.widthAnchor.constraint(equalTo: view.widthAnchor),
+            sectionDivider.heightAnchor.constraint(equalToConstant: 1),
+            sectionDivider.topAnchor.constraint(equalTo: charFieldStackView.bottomAnchor, constant: 40),
+            
+            difficultyLevelSection.topAnchor.constraint(equalTo: sectionDivider.bottomAnchor, constant: 40),
             difficultyLevelSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             difficultyLevelItem.topAnchor.constraint(equalTo: difficultyLevelSection.bottomAnchor, constant: 32),

@@ -76,6 +76,72 @@ class CharView: UIView {
         ])
     }
     
+    init(image: String, value: Int, reversed: Bool) {
+        super.init(frame: .zero)
+        
+        let charImage = UIImage(named: image)
+        let charImageView = UIImageView(image: charImage)
+        
+        let charLabel = UILabel()
+        charLabel.text = String(value)
+        charLabel.font = UIFont(name: "BetterVCR", size: 14)
+        charLabel.textColor = ThemeColor.titleColor
+        
+        [charImageView, charLabel].forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        NSLayoutConstraint.activate([
+            charImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            charImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            charLabel.centerYAnchor.constraint(equalTo: charImageView.centerYAnchor),
+            charLabel.trailingAnchor.constraint(equalTo: charImageView.leadingAnchor, constant: -4)
+        ])
+    }
+    
+    init(image: String, valueLowerBound: Int, valueUpperBound: Int, reversed: Bool) {
+        super.init(frame: .zero)
+        
+        let charImage = UIImage(named: image)
+        let charImageView = UIImageView(image: charImage)
+        
+        let charLowerBoundLabel = UILabel()
+        let charUpperBoundLabel = UILabel()
+        let dash = UILabel()
+        
+        charLowerBoundLabel.text = String(valueLowerBound)
+        charUpperBoundLabel.text = String(valueUpperBound)
+        dash.text = "-"
+        
+        [charLowerBoundLabel, charUpperBoundLabel, dash].forEach {
+            $0.font = UIFont(name: "BetterVCR", size: 14)
+            $0.textColor = ThemeColor.titleColor
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        addSubview(charImageView)
+        charImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            charImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            charImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            charUpperBoundLabel.centerYAnchor.constraint(equalTo: charImageView.centerYAnchor),
+            charUpperBoundLabel.trailingAnchor.constraint(equalTo: charImageView.leadingAnchor, constant: -4),
+            
+            dash.centerYAnchor.constraint(equalTo: charImageView.centerYAnchor),
+            dash.trailingAnchor.constraint(equalTo: charUpperBoundLabel.leadingAnchor, constant: -4),
+
+            charLowerBoundLabel.centerYAnchor.constraint(equalTo: charImageView.centerYAnchor),
+            charLowerBoundLabel.trailingAnchor.constraint(equalTo: dash.leadingAnchor, constant: -4)
+        ])
+    }
+    
+    
+    
     init(image: String) {
         super.init(frame: .zero)
         

@@ -12,11 +12,15 @@ class ViewController: UIViewController {
     var player: Player!
     var monster: Monster!
     
+    var playerImageView: UIImageView!
+    var monsterImageView: UIImageView!
+    
     var playerHealthBar: HealthBar!
     var monsterHealthBar: HealthBar!
     
     let healButton = UIButton()
     var healingPotionsView: CharView!
+    var playerHealLabel: UILabel!
     
     var currentTurn = 0
     var turnLabel: UILabel!
@@ -39,9 +43,13 @@ class ViewController: UIViewController {
     // MARK: - Setup methods
     
     private func setupGame() {
+        //player and monster images
+        playerImageView = UIImageView(image: UIImage(named: "playerImage"))
+        monsterImageView = UIImageView(image: UIImage(named: "monsterImage"))
+        
         //health bars and buttons
-        playerHealthBar = HealthBar(color: .systemGreen)
-        monsterHealthBar = HealthBar(color: .systemRed)
+        playerHealthBar = HealthBar(color: ThemeColor.amazonColor!, borderColor: ThemeColor.basilColor!)
+        monsterHealthBar = HealthBar(color: ThemeColor.bloodColor!, borderColor: ThemeColor.hickoryColor!)
         
         let attackButton = UIButton()
         attackButton.setTitle("Attack", for: .normal)
@@ -88,39 +96,64 @@ class ViewController: UIViewController {
         
         playerHitLabel = UILabel()
         playerHitLabel.font = UIFont(name: "BetterVCR", size: 14)
-        playerHitLabel.textColor = ThemeColor.titleColor
         
         monsterHitLabel = UILabel()
         monsterHitLabel.font = UIFont(name: "BetterVCR", size: 14)
-        monsterHitLabel.textColor = ThemeColor.titleColor
         
-        [turnLabel, playerHitLabel, monsterHitLabel].forEach {
+        playerHealLabel = UILabel()
+        playerHealLabel.font = UIFont(name: "BetterVCR", size: 14)
+        playerHealLabel.textColor = .green
+        
+        // divider
+        let divider = UIView()
+        divider.backgroundColor = ThemeColor.basilColor
+        
+        [turnLabel, playerHitLabel, monsterHitLabel, playerImageView, monsterImageView, divider, playerHealLabel].forEach {
             view.addSubview($0!)
             $0?.translatesAutoresizingMaskIntoConstraints = false
         }
         
         // constraints
         NSLayoutConstraint.activate([
-            turnLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
+            
+            // top view
+            turnLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             turnLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            playerHealthBar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            playerHealthBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            playerImageView.topAnchor.constraint(equalTo: turnLabel.bottomAnchor, constant: 60),
+            playerImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
-            monsterHitLabel.bottomAnchor.constraint(equalTo: playerHealthBar.topAnchor, constant: -8),
-            monsterHitLabel.centerXAnchor.constraint(equalTo: playerHealthBar.centerXAnchor),
+            playerHealthBar.centerYAnchor.constraint(equalTo: playerImageView.centerYAnchor),
+            playerHealthBar.leadingAnchor.constraint(equalTo: playerImageView.centerXAnchor),
             
-            monsterHealthBar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            monsterHealthBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            playerHealLabel.centerYAnchor.constraint(equalTo: playerHealthBar.centerYAnchor),
+            playerHealLabel.leadingAnchor.constraint(equalTo: playerHealthBar.trailingAnchor, constant: 8),
             
-            playerHitLabel.bottomAnchor.constraint(equalTo: monsterHealthBar.topAnchor, constant: -8),
-            playerHitLabel.centerXAnchor.constraint(equalTo: monsterHealthBar.centerXAnchor),
-            
+            // bot view
             attackButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            attackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            
+            attackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48),
+
             healButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            healButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60)
+            healButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
+            
+            monsterImageView.bottomAnchor.constraint(equalTo: healButton.topAnchor, constant: -88),
+            monsterImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+
+            monsterHealthBar.centerYAnchor.constraint(equalTo: monsterImageView.centerYAnchor),
+            monsterHealthBar.trailingAnchor.constraint(equalTo: monsterImageView.centerXAnchor),
+
+            // middle view
+            
+            divider.widthAnchor.constraint(equalTo: view.widthAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 1),
+            divider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            divider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            monsterHitLabel.bottomAnchor.constraint(equalTo: divider.topAnchor, constant: -12),
+            monsterHitLabel.centerXAnchor.constraint(equalTo: divider.centerXAnchor),
+            
+            playerHitLabel.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 12),
+            playerHitLabel.centerXAnchor.constraint(equalTo: divider.centerXAnchor),
         ])
         
     }
@@ -134,6 +167,9 @@ class ViewController: UIViewController {
     // MARK: - Button methods
     
     @objc func attackButtonTapped() {
+        // turn ui reload
+        playerHealLabel.text = nil
+        
         // health before attack
         let previousPlayerHealth = player.health
         let previousMonsterHealth = monster.health
@@ -181,6 +217,9 @@ class ViewController: UIViewController {
     }
     
     @objc func healButtonTapped() {
+        // health before health
+        let previousPlayerHealth = player.health
+        
         if player.healingPotionCount > 1 {
             player.heal()
             playerHealthBar.updateValue(value: player.health)
@@ -192,6 +231,8 @@ class ViewController: UIViewController {
             healButton.backgroundColor = ThemeColor.titleColor!.withAlphaComponent(0.5)
             healButton.isEnabled = false
         }
+        
+        playerHealLabel.text = "+\(player.health - previousPlayerHealth)"
     }
     
     // MARK: - Other methods
@@ -215,11 +256,11 @@ extension ViewController: StartMenuDelegate {
         
         switch difficultyLevel {
         case .easy:
-            monster = Monster(attack: 10, defense: 10, health: 50, damage: 1...8)
+            monster = Monster(attack: 10, defense: 7, health: 50, damage: 1...8)
         case .medium:
-            monster = Monster(attack: 15, defense: 15, health: 75, damage: 4...12)
+            monster = Monster(attack: 15, defense: 12, health: 75, damage: 4...12)
         case .hard:
-            monster = Monster(attack: 20, defense: 20, health: 100, damage: 10...18)
+            monster = Monster(attack: 20, defense: 17, health: 100, damage: 10...18)
         }
         
         playerHealthBar.updateValue(value: player.health)
@@ -235,7 +276,7 @@ extension ViewController: StartMenuDelegate {
         let playerCharBar = UIStackView(arrangedSubviews: [
             CharView(image: "attackImage", value: player.attack),
             CharView(image: "defenseImage", value: player.defense),
-            CharView(image: "healthImage", value: player.health),
+            CharView(image: "healthImage", value: player.maxHealth),
             CharView(image: "damageImage", valueLowerBound: player.damage.lowerBound, valueUpperBound: player.damage.upperBound),
             healingPotionsView
         ])
@@ -243,12 +284,27 @@ extension ViewController: StartMenuDelegate {
         playerCharBar.axis = .vertical
         playerCharBar.spacing = 24
         
-        view.addSubview(playerCharBar)
-        playerCharBar.translatesAutoresizingMaskIntoConstraints = false
+        let monsterCharBar = UIStackView(arrangedSubviews: [
+            CharView(image: "attackImage", value: monster.attack, reversed: true),
+            CharView(image: "defenseImage", value: monster.defense, reversed: true),
+            CharView(image: "healthImage", value: monster.health, reversed: true),
+            CharView(image: "damageImage", valueLowerBound: monster.damage.lowerBound, valueUpperBound: monster.damage.upperBound, reversed: true)
+        ])
+        
+        monsterCharBar.axis = .vertical
+        monsterCharBar.spacing = 24
+        
+        [playerCharBar, monsterCharBar].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
-            playerCharBar.topAnchor.constraint(equalTo: playerHealthBar.bottomAnchor, constant: 8),
-            playerCharBar.leadingAnchor.constraint(equalTo: playerHealthBar.leadingAnchor),
+            playerCharBar.topAnchor.constraint(equalTo: playerImageView.bottomAnchor, constant: 8),
+            playerCharBar.leadingAnchor.constraint(equalTo: playerImageView.leadingAnchor),
+            
+            monsterCharBar.bottomAnchor.constraint(equalTo: monsterImageView.topAnchor, constant: -8),
+            monsterCharBar.trailingAnchor.constraint(equalTo: monsterImageView.trailingAnchor)
         ])
     }
     
@@ -258,6 +314,7 @@ extension ViewController: StartMenuDelegate {
         turnLabel.text = "Fight not begun"
         playerHitLabel.text = nil
         monsterHitLabel.text = nil
+        playerHealLabel.text = nil
         healButton.backgroundColor = ThemeColor.buttonColor
         healButton.isEnabled = true
     }

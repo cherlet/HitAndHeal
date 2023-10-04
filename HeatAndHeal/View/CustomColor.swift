@@ -15,6 +15,7 @@ enum CustomColor: String {
     case BasilColor
     case PecanColor
     case HickoryColor
+    case BloodColor
 }
 
 extension UIColor {
@@ -31,6 +32,7 @@ struct ThemeColor {
     static let basilColor = UIColor.appColor(CustomColor.BasilColor)
     static let pecanColor = UIColor.appColor(CustomColor.PecanColor)
     static let hickoryColor = UIColor.appColor(CustomColor.HickoryColor)
+    static let bloodColor = UIColor.appColor(CustomColor.BloodColor)
     
     static let backgroundColor = hunterGreenColor
     static let titleColor = hickoryColor
